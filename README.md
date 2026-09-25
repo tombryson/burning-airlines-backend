@@ -1,6 +1,12 @@
 # Burning Airlines
 
+**[Try the live project](https://burning-airlines-client.fly.dev/)**
+
+Demo login: `demo@burningairlines.test` / `demo1234`.
+
 A full stack flight booking project built with React, Ruby on Rails and PostgreSQL, using real flight schedule data from the OAG API. This is a handwritten proof-of-concept CRUD project, covering database design, frontend design and UX/UI, backend architecture, and API management.
+
+The frontend and backend are maintained in separate repositories and deployed as separate services. This repository contains the [Rails API and PostgreSQL data model](https://github.com/tombryson/burning-airlines-backend); the [React client](https://github.com/tombryson/burning-airlines-client) lives in the frontend repository.
 
 The basic user story is simple:
 Search for a flight or sign in, choose a seat and save the booking to your account.
@@ -18,7 +24,7 @@ Search, results, seat selection and confirmation have their own React components
 
 Flight schedules come directly from OAG through the Rails backend. The API key stays on the server. Prices are calculated locally using flight duration, carrier, departure time and how close the departure date is.
 
-Saved API responses are included for data mocking. In tests, we substitute mock responses for the HTTP dependency so we can check successful searches, empty results and failures without making live API calls. The running app currently uses OAG; automatic switching between cached and live data depending on the environment is still unfinished.
+Saved API responses are included for data mocking. In tests, we substitute mock responses for the HTTP dependency so we can check successful searches, empty results and failures without making live API calls. The running app uses real OAG data, with shared caching for repeated searches and server-side request limits to protect the API allowance.
 
 Passwords are hashed with bcrypt and booking ownership comes from the authenticated user. A signed flight reference connects the search result to the saved booking, so the browser cannot simply submit different flight details.
 
@@ -49,7 +55,7 @@ bundle exec rails db:create db:migrate
 bundle exec rails server -p 3000
 ```
 
-From the companion frontend directory, `final-project-client`:
+From the companion frontend directory, `burning-airlines-client`:
 
 ```sh
 npm install
